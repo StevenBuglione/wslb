@@ -1,0 +1,15 @@
+{
+  "profiles": [
+    {
+      "antialiasingMode": "grayscale",
+      "fontWeight": "normal",
+      "fontSize" : 13,
+      "colorScheme": "One Half Dark",
+      "font":
+      {
+        "face": "JetBrainsMonoNL Nerd Font"
+      }
+    }
+  ],
+  "schemes": [ ]
+}
