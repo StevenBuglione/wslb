@@ -152,7 +152,3 @@ The various scripts output detailed steps for each process. If errors occur, che
 - Look for permission issues in the Dockerfile.
 - Ensure `dos2unix` is installed on your system.
 - Confirm that Git Bash’s tar is used when required on Windows.
-
----
-
-This README provides an overview of WSLB and the steps involved in converting a Docker container into a custom WSL distribution.
