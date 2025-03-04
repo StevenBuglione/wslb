@@ -52,7 +52,7 @@ The project is structured as follows:
 
 ## How It Works
 
-### 1. Convert File Line Endings
+### 1. Convert File Line Endings(Windows Only Build Scripts)
 
 Each build script converts files from DOS to Unix line endings using `dos2unix`. This conversion is applied to text files under:
 - `/distro/<distro>/config/docker`
