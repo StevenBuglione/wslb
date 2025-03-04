@@ -33,7 +33,13 @@ Write-Log "info" "===== Starting build for ${distro} WSL distro ====="
 
 # Convert line endings for text files
 Write-Log "step" "Converting line endings in distro/${distro}..."
-Get-ChildItem -Path "distro/${distro}" -File | Where-Object {
+Get-ChildItem -Path "distro/${distro}/config/docker" -File | Where-Object {
+    $_.Extension -in @(".sh", ".txt", "", ".conf", ".yml", ".yaml", ".json", ".Dockerfile")
+} | ForEach-Object {
+    Write-Log "info" "Converting: $($_.FullName)"
+    & dos2unix $_.FullName
+}
+Get-ChildItem -Path "distro/${distro}/config/wsl" -File | Where-Object {
     $_.Extension -in @(".sh", ".txt", "", ".conf", ".yml", ".yaml", ".json", ".Dockerfile")
 } | ForEach-Object {
     Write-Log "info" "Converting: $($_.FullName)"
@@ -50,8 +56,11 @@ New-Item -Path "../../bin/${distro}" -ItemType Directory -Force | Out-Null
 Write-Log "step" "Running container to prepare filesystem..."
 docker run -t --name "${distro}-wsl" "${distro}-wsl"
 
+# Define path to Git Bash tar. Adjust the path if necessary.
+$gitBashTar = "C:\Program Files\Git\usr\bin\tar.exe"
+
 Write-Log "step" "Exporting container to tarball..."
-docker export "${distro}-wsl" | tar --delete --wildcards "etc/resolv.conf" > "../../bin/${distro}/${distro}-wsl.tar"
+docker export "${distro}-wsl" | & $gitBashTar --delete --wildcards "etc/resolv.conf" > "../../bin/${distro}/${distro}-wsl.tar"
 
 Write-Log "step" "Cleaning up container..."
 docker rm "${distro}-wsl"
