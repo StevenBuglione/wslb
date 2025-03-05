@@ -1,10 +1,5 @@
-FROM ubuntu:latest
+FROM ghcr.io/stevenbuglione/ubuntu-wsl:latest
 LABEL authors="sbuglione"
-
-RUN userdel -r ubuntu
-
-# Force all users to use bash as the default shell.
-RUN sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
 
 COPY ./config /tmp/config
 
